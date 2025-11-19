@@ -8,17 +8,25 @@ router.get('/', (req, res)=>{
     res.render('users/list', {users:users});
 });
 router.get('/new', (req, res)=>{
-    res.send('New User Form');
+    res.render('users/new', {firstName: "Please enter your name"});
 });
 router.post('/', (req, res)=>{
-    res.send("User Created!");
-    const name = req.body.firstName;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const age = req.body.age;
+    const gender = req.body.gender;
+    
     const isValid = firstName !=="";
     if(isValid)
     {
-        console.log(`Adding User: ${name}`);
-        users.push({name: firstName});
-        console.log(`New set of Users ${users}`);
+        console.log(`Adding User: ${firstname}`);
+        users.push({
+            firstname: firstName,
+            lastName: lastName,
+            gender: gender,
+            age: age,
+        });
+        console.log(`New Set of Users: ${users}`);
         res.send("User Created!");
     }
     else{
@@ -38,7 +46,7 @@ router.route("/:id").get((req, res)=>{
 }).put((req, res)=>{
     res.send(`Updating user with id: ${req.params.id}`);
 });
-const users = [{name:"Sushil"},{name:"George"}];
+const users = [];
 
 
 
